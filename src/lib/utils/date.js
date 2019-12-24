@@ -2,7 +2,7 @@
  * @Author: Nianko
  * @Date: 2019-12-02 11:40:16
  * @Last Modified by: Nianko
- * @Last Modified time: 2019-12-24 17:20:26
+ * @Last Modified time: 2019-12-24 18:36:14
  */
 
 /**
@@ -15,13 +15,18 @@ function _padNum(num) {
   return len > 2 ? str.substr(len - 2, len) : str;
 }
 
+// lang="en" 英
+// lang="zh" 中
 class MiaozaDate {
-  constructor(date) {
-    this.date =
-      date instanceof Date ? date : !!date ? new Date(date) : new Date();
+  // constructor(date) {
+  //   this.date =
+  //     date instanceof Date ? date : !!date ? new Date(date) : new Date();
+  // }
+  set date(date) {
+    return date instanceof Date ? date : !!date ? new Date(date) : new Date();
   }
   // 获取年份
-  getYear(lang) {
+  getYear(lang = "en") {
     const year = this.date.getFullYear();
     return lang === "zh" ? `${year}年` : year;
   }
@@ -30,7 +35,7 @@ class MiaozaDate {
     return this.date.getMonth() + 1;
   }
   // 格式化月份
-  geFormateMonth(lang) {
+  geFormateMonth(lang = "en") {
     const months = [
       "一月",
       "二月",
@@ -54,7 +59,7 @@ class MiaozaDate {
     return this.date.getDate();
   }
   // 获取日期
-  getFormateDate(lang) {
+  getFormateDate(lang = "en") {
     return lang === "zh"
       ? this.date.getDate()
       : `${_padNum(this.date.getDate())}日`;
@@ -89,11 +94,11 @@ class MiaozaDate {
   }
   /**
    *
-   * @param {string} weeType [en|zh]
+   * @param {string} lang [en|zh]
    */
-  getFormateWeek(weeType = "en") {
+  getFormateWeek(lang = "en") {
     const week =
-      type === "zh"
+      lang === "zh"
         ? ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
         : ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
     return week[this.date.getDay()];
